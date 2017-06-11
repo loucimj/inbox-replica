@@ -1,4 +1,5 @@
 # inbox-replica
+FORK from https://github.com/RabbitMC/inbox-replica made by RabbitMC
 Recreated the expanding cells effect from `Inbox` by Google in Swift
 
 # Goal
