@@ -61,6 +61,14 @@ class ExpandingCellTransition: NSObject,
         var targetViewController = backgroundViewController
         if let navController = targetViewController as? UINavigationController {
             targetViewController = navController.topViewController!
+            if let tabBarController = targetViewController as? UITabBarController {
+                if let viewControllers = tabBarController.viewControllers {
+                    targetViewController = viewControllers[tabBarController.selectedIndex]
+                    if let navController =  targetViewController as? UINavigationController {
+                        targetViewController = navController.topViewController!
+                    }
+                }
+            }
         }
         let targetViewMaybe = (targetViewController as? ExpandingTransitionPresentingViewController)?.expandingTransitionTargetViewForTransition(self)
 
@@ -123,6 +131,15 @@ class ExpandingCellTransition: NSObject,
         presentingController = presenting
         if let navController = presentingController as? UINavigationController {
             presentingController = navController.topViewController
+        }
+
+        if let tabBarController = presentingController as? UITabBarController {
+            if let viewControllers = tabBarController.viewControllers {
+                presentingController = viewControllers[tabBarController.selectedIndex]
+                if let navController =  presentingController as? UINavigationController {
+                    presentingController = navController.topViewController
+                }
+            }
         }
 
         if presentingController is ExpandingTransitionPresentingViewController {
